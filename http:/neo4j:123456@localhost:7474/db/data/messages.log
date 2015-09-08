@@ -1,0 +1,210 @@
+2015-09-02 20:12:49.842-0300: Creating new db @ /home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data/neostore
+2015-09-02 20:12:49.904-0300: Opened [/home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data/nioneo_logical.log.1] clean empty log, version=0, lastTxId=1
+2015-09-02 20:12:49.907-0300: Opened [/home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data/index/lucene.log.1] clean empty log, version=0, lastTxId=1
+2015-09-02 20:12:49.908-0300: TM new log: tm_tx_log.1
+2015-09-02 20:12:49.909-0300: --- STARTUP diagnostics START ---
+2015-09-02 20:12:49.909-0300: Graph Database: org.neo4j.kernel.EmbeddedGraphDatabase StoreId[time:1441235569842, id:-3291133229102562278, store version: 13561656364791302]
+2015-09-02 20:12:49.910-0300: Kernel version: Neo4j - Graph Database Kernel 1.6
+2015-09-02 20:12:49.910-0300: Neo4j component versions:
+2015-09-02 20:12:49.910-0300:   Neo4j - Graph Database Kernel 1.6
+2015-09-02 20:12:49.910-0300: Diagnostics providers:
+    KernelDiagnostics:Versions
+    org.neo4j.kernel.info.DiagnosticsManager
+    SYSTEM_MEMORY
+    JAVA_MEMORY
+    OPERATING_SYSTEM
+    JAVA_VIRTUAL_MACHINE
+    CLASSPATH
+    LIBRARY_PATH
+    SYSTEM_PROPERTIES
+    LINUX_SCHEDULERS
+    org.neo4j.kernel.Config
+    NEO_STORE_VERSIONS
+    NEO_STORE_ID_USAGE
+    KernelDiagnostics:StoreFiles
+2015-09-02 20:12:49.910-0300: System memory information:
+    Total Physical memory: 15,59 GB
+    Free Physical memory: 214,44 MB
+    Committed virtual memory: 5,68 GB
+    Total swap space: 15,91 GB
+    Free swap space: 15,91 GB
+2015-09-02 20:12:49.912-0300: JVM memory information:
+    Free  memory: 218,89 MB
+    Total memory: 239,50 MB
+    Max   memory: 3,47 GB
+    Garbage Collector: PS Scavenge: [PS Eden Space, PS Survivor Space]
+    Garbage Collector: PS MarkSweep: [PS Eden Space, PS Survivor Space, PS Old Gen, PS Perm Gen]
+    Memory Pool: Code Cache (Non-heap memory): committed=2,44 MB, used=479,44 kB, max=48,00 MB, threshold=0,00 B
+    Memory Pool: PS Eden Space (Heap memory): committed=63,50 MB, used=20,61 MB, max=1,28 GB, threshold=?
+    Memory Pool: PS Survivor Space (Heap memory): committed=10,00 MB, used=0,00 B, max=10,00 MB, threshold=?
+    Memory Pool: PS Old Gen (Heap memory): committed=166,00 MB, used=0,00 B, max=2,60 GB, threshold=0,00 B
+    Memory Pool: PS Perm Gen (Non-heap memory): committed=21,00 MB, used=9,01 MB, max=166,00 MB, threshold=0,00 B
+2015-09-02 20:12:49.915-0300: Operating system information:
+    Operating System: Linux; version: 3.16.0-38-generic; arch: amd64; cpus: 8
+    Max number of file descriptors: 4096
+    Number of open file descriptors: 78
+    Process id: 14678@luisangel-pc
+    Byte order: LITTLE_ENDIAN
+2015-09-02 20:12:49.915-0300: JVM information:
+    VM Name: OpenJDK 64-Bit Server VM
+    VM Vendor: Oracle Corporation
+    VM Version: 24.79-b02
+    JIT compiler: HotSpot 64-Bit Tiered Compilers
+    VM Arguments: []
+2015-09-02 20:12:49.915-0300: Java classpath:
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/libatk-wrapper.so
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-kernel-1.6.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/lucene-core-3.5.0.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-cypher-1.6.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-jmx-1.6.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/classes
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/dnsns.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/geronimo-jta_1.1_spec-1.1.1.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jfr.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/charsets.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-lucene-index-1.6.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/resources.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jsse.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/scala-library-2.9.0-1.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/sunrsasign.jar
+     [bootstrap] /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rhino.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-graph-algo-1.6.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-graph-matching-1.6.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-udc-1.6.jar
+     [classpath + loader.0] file:/usr/local/lib/python2.7/dist-packages/neo4j/javalib/neo4j-1.6.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/zipfs.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunpkcs11.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/icedtea-sound.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunjce_provider.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/localedata.jar
+     [loader.1] file:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar
+2015-09-02 20:12:49.917-0300: Library path:
+    /home/luisangel/Descargas/pycharm-4.5.3/bin
+    /home/luisangel/PycharmProjects/Neo4j
+    /usr/java/packages/lib/amd64
+    /usr/lib/x86_64-linux-gnu/jni
+    /lib/x86_64-linux-gnu
+    /usr/lib/x86_64-linux-gnu
+    /usr/lib/jni
+    /lib
+    /usr/lib
+2015-09-02 20:12:49.917-0300: System.properties:
+    sun.boot.library.path = /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64
+    path.separator = :
+    file.encoding.pkg = sun.io
+    user.country = CL
+    sun.os.patch.level = unknown
+    user.dir = /home/luisangel/PycharmProjects/Neo4j
+    neo4j.ext.udc.source = maven
+    sun.jnu.encoding = UTF-8
+    sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+    user.home = /home/luisangel
+    user.timezone = America/Santiago
+    file.encoding = UTF-8
+    user.name = luisangel
+    sun.arch.data.model = 64
+    user.language = es
+    awt.toolkit = sun.awt.X11.XToolkit
+    file.separator = /
+    sun.io.unicode.encoding = UnicodeLittle
+    sun.cpu.endian = little
+    sun.desktop = gnome
+    sun.cpu.isalist = 
+2015-09-02 20:12:49.918-0300: Linux scheduler information:
+    noop [deadline] cfq 
+    noop [deadline] cfq 
+    noop [deadline] cfq 
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+    none
+2015-09-02 20:12:49.920-0300: Neo4j Kernel properties:
+    store_dir=/home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data
+    logical_log=/home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data/nioneo_logical.log
+    node_auto_indexing=false
+    neostore.relationshipstore.db.mapped_memory=100M
+    neostore.nodestore.db.mapped_memory=20M
+    use_memory_mapped_buffers=true
+    rebuild_idgenerators_fast=true
+    neostore.propertystore.db.index.keys.mapped_memory=1M
+    neostore.propertystore.db.arrays.mapped_memory=130M
+    neostore.propertystore.db.strings.mapped_memory=130M
+    neo_store=/home/luisangel/PycharmProjects/Neo4j/http:/neo4j:123456@localhost:7474/db/data/neostore
+    neostore.propertystore.db.index.mapped_memory=1M
+    create=true
+    neostore.propertystore.db.mapped_memory=90M
+    relationship_auto_indexing=false
+2015-09-02 20:12:49.921-0300: Store versions:
+    NeoStore v0.A.0
+    NodeStore v0.A.0
+    RelationshipStore v0.A.0
+    RelationshipTypeStore v0.A.0
+    PropertyStore v0.A.0
+    PropertyIndexStore v0.A.0
+    StringPropertyStore v0.A.0
+    ArrayPropertyStore v0.A.0
+2015-09-02 20:12:49.921-0300: Id usage:
+    NodeStore: used=1 high=0
+    RelationshipStore: used=0 high=-1
+    RelationshipTypeStore: used=0 high=-1
+    PropertyStore: used=0 high=-1
+    PropertyIndexStore: used=0 high=-1
+    StringPropertyStore: used=1 high=0
+    ArrayPropertyStore: used=1 high=0
+2015-09-02 20:12:49.921-0300: Storage files:
+    neostore.relationshiptypestore.db.id: 9,00 B
+    nioneo_logical.log.active: 4,00 B
+    active_tx_log: 11,00 B
+    neostore.propertystore.db.index: 0,00 B
+    tm_tx_log.1: 0,00 B
+    neostore.relationshiptypestore.db.names.id: 9,00 B
+    lock: 0,00 B
+    neostore.relationshipstore.db: 0,00 B
+    neostore.relationshipstore.db.id: 9,00 B
+    neostore.propertystore.db.index.keys: 38,00 B
+    neostore.relationshiptypestore.db.names: 38,00 B
+    neostore.propertystore.db.strings: 128,00 B
+    neostore.id: 9,00 B
+    neostore.propertystore.db.arrays: 128,00 B
+    neostore.nodestore.db: 9,00 B
+    neostore.propertystore.db.index.id: 9,00 B
+    neostore.propertystore.db: 0,00 B
+    neostore.propertystore.db.id: 9,00 B
+    neostore.relationshiptypestore.db: 0,00 B
+    index:
+      lucene-store.db: 40,00 B
+      lucene.log.active: 4,00 B
+      lucene.log.1: 16,00 B
+    - Total: 60,00 B
+    neostore.propertystore.db.strings.id: 9,00 B
+    neostore.propertystore.db.arrays.id: 9,00 B
+    neostore: 54,00 B
+    neostore.propertystore.db.index.keys.id: 9,00 B
+    messages.log: 8,15 kB
+    neostore.nodestore.db.id: 9,00 B
+    nioneo_logical.log.1: 16,00 B
+2015-09-02 20:12:49.925-0300: --- STARTUP diagnostics END ---
+2015-09-02 20:12:49.928-0300: Extension org.neo4j.kernel.KernelExtension[kernel jmx] loaded ok
+2015-09-02 20:12:49.928-0300: Extension org.neo4j.kernel.KernelExtension[kernel udc] loaded ok

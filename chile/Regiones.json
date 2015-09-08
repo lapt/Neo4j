@@ -1,0 +1,62 @@
+[
+	{
+		"name": "Tarapaca",
+		"region_id": "1"
+	},
+	{
+		"name": "Antofagasta",
+		"region_id": "2"
+	},
+	{
+		"name": "Atacama",
+		"region_id": "3"
+	},
+	{
+		"name": "Coquimbo",
+		"region_id": "4"
+	},
+	{
+		"name": "Valparaiso",
+		"region_id": "5"
+	},
+	{
+		"name": "O'Higgins",
+		"region_id": "6"
+	},
+	{
+		"name": "Maule",
+		"region_id": "7"
+	},
+	{
+		"name": "Biobio",
+		"region_id": "8"
+	},
+	{
+		"name": "la Araucania",
+		"region_id": "9"
+	},
+	{
+		"name": "Los Lagos",
+		"region_id": "10"
+	},
+	{
+		"name": "Aisen",
+		"region_id": "11"
+	},
+	{
+		"name": "Magallanes",
+		"region_id": "12"
+	},
+	{
+		"name": "Metropolitana de Santiago",
+		"region_id": "13"
+	},
+	{
+		"name": "Los Rios",
+		"region_id": "14"
+	},
+	{
+		"name": "Arica y Parinacota",
+		"region_id": "15"
+	}
+]
