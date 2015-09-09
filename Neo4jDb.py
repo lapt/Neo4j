@@ -15,14 +15,14 @@ enc = lambda x: x.encode('ascii', errors='ignore')
 
 # The consumer keys can be found on your application's Details
 # page located at https://dev.twitter.com/apps (under "OAuth settings")
-CONSUMER_KEY = 'ZJ1eUqxFQkciz2UsF4oNnmGGx'
-CONSUMER_SECRET = 'AVyBW5YLqsZvnfid9tPRKWZiTnH3cfGr4To4qIewQOsGOSlUoy'
+CONSUMER_KEY = 'NKNCueURlcpitCRUwK0TngfLq'
+CONSUMER_SECRET = 'HB7aKDAHwBSinXnfU7hKvFUKTpESfMPFm3YKtOyViTw8md4rhl'
 
 # The access tokens can be found on your applications's Details
 # page located at https://dev.twitter.com/apps (located
 # under "Your access token")
-ACCESS_TOKEN = '126471512-VA3tQzTd9Arpfsn5B5CimnRVMHEhHplnXgcZ5nZp'
-ACCESS_TOKEN_SECRET = 'ZXEWCvghwlnq6fqdilQHojd6n8UDXrImQBe5E5XYTXIzo'
+ACCESS_TOKEN = '126471512-It4hiXQFV5ar8wYIj5GTObuwwfbrjblxOzUS98Ah'
+ACCESS_TOKEN_SECRET = '4g7tCdzP6ZvFm5hEPCi1oIvi45hepUAPWcqQX590a8BKG'
 
 # == OAuth Authentication ==
 #
@@ -192,6 +192,9 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                     except tweepy.TweepError, e:
                         if e.message[0]['code'] == 34:
                             print "Not found ApiTwitter id: "+str(centre)+" fid= "+str(fid)
+                            break
+                        if e.message[0]['code'] == 63:
+                            print 'Usuario suspendido:'+str(centre)+" fid= "+str(fid)
                             break
                         else:
                                            # hit rate limit, sleep for 15 minutes

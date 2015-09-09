@@ -156,7 +156,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                 user=getUser(gdb,centre)
                 if user is None or user['chile'] is False:
                     return taboo_list
-                print 'Recuperacion de datos de usuario de Twitter id %s' % str(centre)
+                print 'user id %s' % str(centre)
                 break
             except tweepy.TweepError, error:
                 print type(error)
@@ -192,10 +192,17 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                         user2=getUser(gdb,fid)
                         break
                     except tweepy.TweepError, e:
-                        # hit rate limit, sleep for 15 minutes
-                        print 'Rate limited. Dormir durante 15 minutos. ' + e.reason
-                        time.sleep(15 * 60 + 15)
-                        continue
+                        if e.message[0]['code'] == 34:
+                            print "Not found ApiTwitter id: "+str(centre)+" fid= "+str(fid)
+                            break
+                        if e.message[0]['code'] == 63:
+                            print 'Usuario suspendido:'+str(centre)+" fid= "+str(fid)
+                            break
+                        else:
+                                           # hit rate limit, sleep for 15 minutes
+                            print 'Rate limited. Dormir durante 15 minutos. ' + e.reason
+                            time.sleep(15 * 60 + 15)
+                            continue
                     except StopIteration:
                         break
 
@@ -213,7 +220,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                 print 'No todos los seguidores fueron recuperados para %d.' % centre
 
     except Exception, error:
-        print 'Error al recuperar los seguidores de usuario id: '+ str(centre)
+        print 'Error al recuperar los seguidores de usuario id: '+ str(centre)+'y con fid = '+str(fid)
         print error
         return taboo_list
         sys.exit(1)
@@ -251,8 +258,3 @@ def prueba():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
