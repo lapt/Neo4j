@@ -4,7 +4,7 @@ import time
 
 from User_location import *
 from neo4jrestclient.client import GraphDatabase
-
+from neo4jrestclient import exceptions
 
 FOLLOWERS_OF_FOLLOWERS_LIMIT = 500
 DEPTH = 3
@@ -43,18 +43,24 @@ def createUserJson(user={},userfname=str()):
         print("UserJson id: "+str(user['id'])+" creado.")
 
 def createUserNode(gdb, user={}):
-    u=user.copy()
-    n = gdb.node()
-    if u.get('followers_ids') is not None:
-        del(u['followers_ids'])
-    n.properties = u
-    n.labels.add("User")
-    if n.get('chile') is True:
-        n.labels.add("Chile")
-        if n.get('screen_name') == SEMILLA:
-            n.labels.add("Semilla")
-    else:
-        n.labels.add("Extranjero")
+    try:
+        u = user.copy()
+        n = gdb.node()
+        if u.get('followers_ids') is not None:
+            del(u['followers_ids'])
+        n.properties = u
+        n.labels.add("User")
+        if n.get('chile') is True:
+            n.labels.add("Chile")
+            if n.get('screen_name') == SEMILLA:
+                n.labels.add("Semilla")
+        else:
+            n.labels.add("Extranjero")
+    except exceptions.StatusException as e:
+        n.delete()
+        print "Ocurrio el siguiente error: "+e.result
+        return None
+
     return n
 
 
@@ -75,17 +81,17 @@ def getIdUserNodo(gdb,id):
     param={'id':id}
     results = gdb.query(query, params=param,data_contents=True)
     if len(results.rows)>1:
-        print("WARNING: ID CON MAS DE UN NODO ASIGNADO.")
+        print "WARNING: ID CON MAS DE UN NODO ASIGNADO. Id: " + str(id)
     return results.rows[0][0]['id']
 
 def getUser(gdb, id):
-    existe=False ## Para evitar nodos repetidos
+    existe = False ## Para evitar nodos repetidos
     ##USAMOS NEO4J
     query="MATCH (n:User)WHERE n.id={id} RETURN n LIMIT 25"
     param={'id':id}
-    results = gdb.query(query, params=param,data_contents=True)
+    results = gdb.query(query, params=param, data_contents=True)
     if results.rows is not None:
-        existe=True
+        existe = True
         u=results.rows[0][0]
         if u['chile'] is False:
             return u
@@ -95,7 +101,8 @@ def getUser(gdb, id):
     if os.path.exists(userfname):
         user = json.loads(file(userfname).read())
         if existe is False:
-            createUserNode(gdb, user)
+            if createUserNode(gdb, user) is None:
+                return None
         return user
     ##USAMOS APITWITTER
 
@@ -114,7 +121,8 @@ def getUser(gdb, id):
         user['followers_ids'] = u.followers_ids()
         createUserJson(user,userfname)
     if existe is False:
-        createUserNode(gdb, user)
+        if createUserNode(gdb, user) is None:
+            return None
     return user
 
 def getRelationById(gdb, id):
@@ -256,4 +264,3 @@ def prueba():
 
 if __name__ == "__main__":
     main()
-
