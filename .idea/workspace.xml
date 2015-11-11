@@ -1,56 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52940552-2d65-42a1-9f16-d507836a7b77" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Credentials.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser10.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser11.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser12.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser13.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser17.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser18.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser19.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser2.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser20.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser22.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser3.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser4.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser5.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser6.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser7.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser8.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IdUser9.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Neo4jDb252.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/prueba2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb.py" afterPath="$PROJECT_DIR$/Neo4jDb.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb10.py" afterPath="$PROJECT_DIR$/Neo4jDb10.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb11.py" afterPath="$PROJECT_DIR$/Neo4jDb11.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb12.py" afterPath="$PROJECT_DIR$/Neo4jDb12.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb13.py" afterPath="$PROJECT_DIR$/Neo4jDb13.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb14.py" afterPath="$PROJECT_DIR$/Neo4jDb14.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb15.py" afterPath="$PROJECT_DIR$/Neo4jDb15.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb16.py" afterPath="$PROJECT_DIR$/Neo4jDb16.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb17.py" afterPath="$PROJECT_DIR$/Neo4jDb17.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb18.py" afterPath="$PROJECT_DIR$/Neo4jDb18.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb19.py" afterPath="$PROJECT_DIR$/Neo4jDb19.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb2.py" afterPath="$PROJECT_DIR$/Neo4jDb2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb20.py" afterPath="$PROJECT_DIR$/Neo4jDb20.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb21.py" afterPath="$PROJECT_DIR$/Neo4jDb21.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb22.py" afterPath="$PROJECT_DIR$/Neo4jDb22.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb23.py" afterPath="$PROJECT_DIR$/Neo4jDb23.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb24.py" afterPath="$PROJECT_DIR$/Neo4jDb24.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb25.py" afterPath="$PROJECT_DIR$/Neo4jDb25.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb3.py" afterPath="$PROJECT_DIR$/Neo4jDb3.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb4.py" afterPath="$PROJECT_DIR$/Neo4jDb4.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb5.py" afterPath="$PROJECT_DIR$/Neo4jDb5.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb6.py" afterPath="$PROJECT_DIR$/Neo4jDb6.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb7.py" afterPath="$PROJECT_DIR$/Neo4jDb7.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb8.py" afterPath="$PROJECT_DIR$/Neo4jDb8.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Neo4jDb9.py" afterPath="$PROJECT_DIR$/Neo4jDb9.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prueba.py" afterPath="$PROJECT_DIR$/prueba.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="52940552-2d65-42a1-9f16-d507836a7b77" name="Default" comment="" />
     <ignored path="Neo4j.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
