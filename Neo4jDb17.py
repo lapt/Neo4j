@@ -6,9 +6,9 @@ from User_location import *
 from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import exceptions
 
-FOLLOWERS_OF_FOLLOWERS_LIMIT = 500
-DEPTH = 3
-SEMILLA = "soyvaldivia"
+FOLLOWERS_OF_FOLLOWERS_LIMIT = 3000000
+DEPTH = 2
+SEMILLA = "mxperez"#"soyvaldiviacl"
 BDJSON = "/home/luisangel/twitter-users"
 
 enc = lambda x: x.encode('ascii', errors='ignore')
@@ -36,6 +36,17 @@ api = tweepy.API(auth)
 def getConecction():
     gdb = GraphDatabase("http://neo4j:123456@localhost:7474/db/data/")
     return gdb
+
+
+def getIdsBySemilla(gdb, semilla):  # Ids por semilla
+    query = "MATCH (n:Chile)-->(p) WHERE n.screen_name={sn} RETURN collect(p.id) as n"
+    param = {'sn': semilla}
+    results = gdb.query(query, params=param, data_contents=True)
+    if len(results.rows) > 1:
+        print "WARNING: ID CON MAS DE UN NODO ASIGNADO. Id: " + str(id)
+    return results.rows[0][0]
+
+
 
 def createUserJson(user={},userfname=str()):
     with open(userfname, 'w') as outf:
@@ -187,7 +198,10 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                 return taboo_list
 
         cd = current_depth
-        followerids=user['followers_ids']
+        setSemilla = set(getIdsBySemilla(gdb, str(user['screen_name'])))
+        setFollowerId = set(user['followers_ids'])
+
+        followerids = list(setFollowerId - setSemilla)
         if cd + 1 < max_depth:
             idnodo=getIdUserNodo(gdb,user['id'])
             nodo=gdb.node[idnodo]
@@ -198,6 +212,14 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                         user2=getUser(gdb,fid)
                         break
                     except tweepy.TweepError, e:
+                        if e.reason == 'Failed to send request: (\'Connection aborted.\', gaierror(-2, \'Name or service not known\'))':
+                            print 'Internet. Dormir durante 1 minuto. ' + e.message
+                            time.sleep(60)
+                            continue
+                        if e.reason == 'Failed to send request: HTTPSConnectionPool(host=\'api.twitter.com\', port=443): Read timed out. (read timeout=60)':
+                            print 'Internet. Dormir durante 1 minuto. ' + e.message
+                            time.sleep(60)
+                            continue
                         if e.message[0]['code'] == 34:
                             print "Not found ApiTwitter id: "+str(centre)+" fid= "+str(fid)
                             break
@@ -220,7 +242,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
 
                 createRelation(gdb,nodo,nodo2)
                 taboo_list = get_follower_ids(fid, max_depth=max_depth,
-                                                  current_depth=cd + 1, taboo_list=taboo_list)
+                                                      current_depth=cd + 1, taboo_list=taboo_list)
 
         if cd + 1 < max_depth and len(followerids) > FOLLOWERS_OF_FOLLOWERS_LIMIT:
                 print 'No todos los seguidores fueron recuperados para %d.' % centre
@@ -232,6 +254,17 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
         sys.exit(1)
 
     return taboo_list
+
+
+def getIds(sn):
+    ides = []
+    i = 0
+    for page in tweepy.Cursor(api.followers_ids, screen_name=sn).pages():
+        ides.extend(page)
+        i += 1
+        print "Avance: %d" % i
+        time.sleep(60)
+    return ides
 
 
 def main():
@@ -247,7 +280,7 @@ def main():
     matches = api.lookup_users(screen_names=[screenname])  # Busca Usuario Twitter
 
     if len(matches) == 1:
-        print get_follower_ids(matches[0].id, max_depth=depth)
+        print len(get_follower_ids(matches[0].id, max_depth=depth))
     else:
         print 'Lo sentimos, no pudo encontrar el usuario de Twitter con screen name: %s' % screenname
 
