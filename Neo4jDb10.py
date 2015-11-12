@@ -1,7 +1,8 @@
 __author__ = 'luisangel'
 import tweepy
 import time
-
+import MySQLdb
+import Credentials as k
 from User_location import *
 from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import exceptions
@@ -33,9 +34,58 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 
+def get_connection_sql():
+    # Returns a connection object whom will be given to any DB Query function.
+
+    try:
+        connection = MySQLdb.connect(host=k.GEODB_HOST, port=3306, user=k.GEODB_USER,
+                                     passwd=k.GEODB_KEY, db=k.GEODB_NAME)
+        return connection
+    except MySQLdb.DatabaseError, e:
+        print 'Error %s' % e
+        sys.exit(1)
+
+
+def insert_lost_user(connection, id_user):
+
+    try:
+        x = connection.cursor()
+        x.execute('INSERT INTO LostUser VALUES (%s) ', (
+            id_user,))
+        connection.commit()
+    except MySQLdb.DatabaseError, e:
+        print 'Error %s' % e
+        connection.rollback()
+    pass
+
+
+def get_id_lost(connection):
+    query = "SELECT idLostUser FROM LostUser ;"
+    try:
+        cursor = connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+        if data is None:
+            return None
+        else:
+            return [x[0] for x in data]
+    except MySQLdb.Error:
+        print "Error: unable to fetch data"
+        return -1
+
+
+def close_connection_sql(connection):
+    connection.close()
+
+
 def getConecction():
     gdb = GraphDatabase("http://neo4j:123456@localhost:7474/db/data/")
     return gdb
+
+def createUserJson(user={},userfname=str()):
+    with open(userfname, 'w') as outf:
+        outf.write(json.dumps(user, indent=1))
+        print("UserJson id: "+str(user['id'])+" creado.")
 
 
 def getIdsBySemilla(gdb, semilla):  # Ids por semilla
@@ -47,10 +97,6 @@ def getIdsBySemilla(gdb, semilla):  # Ids por semilla
     return results.rows[0][0]
 
 
-def createUserJson(user={},userfname=str()):
-    with open(userfname, 'w') as outf:
-        outf.write(json.dumps(user, indent=1))
-        print("UserJson id: "+str(user['id'])+" creado.")
 
 def createUserNode(gdb, user={}):
     try:
@@ -197,10 +243,16 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                 return taboo_list
 
         cd = current_depth
+        cn = get_connection_sql()
+        id_loser = get_id_lost(cn)
+        close_connection_sql(cn)
+
+        set_id_loser = set(id_loser)
         setSemilla = set(getIdsBySemilla(gdb, str(user['screen_name'])))
         setFollowerId = set(user['followers_ids'])
 
-        followerids = list(setFollowerId - setSemilla)
+
+        followerids = list(setFollowerId - setSemilla-set_id_loser)
         if cd + 1 < max_depth:
             idnodo=getIdUserNodo(gdb,user['id'])
             nodo=gdb.node[idnodo]
@@ -221,9 +273,15 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                             continue
                         if e.message[0]['code'] == 34:
                             print "Not found ApiTwitter id: "+str(centre)+" fid= "+str(fid)
+                            cn = get_connection_sql()
+                            insert_lost_user(cn, fid)
+                            close_connection_sql(cn)
                             break
                         if e.message[0]['code'] == 63:
                             print 'Usuario suspendido:'+str(centre)+" fid= "+str(fid)
+                            cn = get_connection_sql()
+                            insert_lost_user(cn, fid)
+                            close_connection_sql(cn)
                             break
                         else:
                                            # hit rate limit, sleep for 15 minutes
@@ -233,6 +291,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                     except StopIteration:
                         break
 
+
                 if user2 is None:
                     continue
 
@@ -241,7 +300,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
 
                 createRelation(gdb,nodo,nodo2)
                 taboo_list = get_follower_ids(fid, max_depth=max_depth,
-                                                      current_depth=cd + 1, taboo_list=taboo_list)
+                                                  current_depth=cd + 1, taboo_list=taboo_list)
 
         if cd + 1 < max_depth and len(followerids) > FOLLOWERS_OF_FOLLOWERS_LIMIT:
                 print 'No todos los seguidores fueron recuperados para %d.' % centre
