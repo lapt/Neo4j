@@ -9,7 +9,7 @@ from neo4jrestclient import exceptions
 FOLLOWERS_OF_FOLLOWERS_LIMIT = 3000000
 DEPTH = 2
 SEMILLA = "mxperez"#"soyvaldiviacl"
-BDJSON = "/home/luisangel/twitter-users"
+BDJSON = "../../twitter-users"
 
 enc = lambda x: x.encode('ascii', errors='ignore')
 

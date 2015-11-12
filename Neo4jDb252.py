@@ -13,7 +13,7 @@ DEPTH = 2
 SEMILLA = "Alexis_Sanchez"
 
 
-BDJSON = "/home/luisangel/twitter-users"
+BDJSON = "../../twitter-users"
 
 enc = lambda x: x.encode('ascii', errors='ignore')
 

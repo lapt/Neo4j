@@ -9,8 +9,7 @@ from neo4jrestclient import exceptions
 FOLLOWERS_OF_FOLLOWERS_LIMIT = 3000000
 DEPTH = 2
 SEMILLA = "TVN"
-BDJSON = "/home/luisangel/twitter-users"
-
+BDJSON = "../../twitter-users"
 enc = lambda x: x.encode('ascii', errors='ignore')
 
 # The consumer keys can be found on your application's Details
