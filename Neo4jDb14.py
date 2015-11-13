@@ -10,6 +10,7 @@ FOLLOWERS_OF_FOLLOWERS_LIMIT = 3000000
 DEPTH = 2
 SEMILLA = "biobio"#"soycoronel"
 BDJSON = "../../twitter-users"
+ID_BAD = 0
 
 enc = lambda x: x.encode('ascii', errors='ignore')
 
@@ -226,7 +227,12 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                             print 'Usuario suspendido:'+str(centre)+" fid= "+str(fid)
                             break
                         else:
-                                           # hit rate limit, sleep for 15 minutes
+                            global ID_BAD
+                            if ID_BAD == fid:
+                                print "Id: %d durmio dos veces." % fid
+                                break
+                            ID_BAD = fid
+                            # hit rate limit, sleep for 15 minutes
                             print 'Rate limited. Dormir durante 15 minutos. ' + e.reason
                             time.sleep(15 * 60 + 15)
                             continue

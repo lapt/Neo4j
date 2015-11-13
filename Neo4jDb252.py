@@ -11,7 +11,7 @@ from neo4jrestclient import exceptions
 FOLLOWERS_OF_FOLLOWERS_LIMIT = 7000000
 DEPTH = 2
 SEMILLA = "Alexis_Sanchez"
-
+ID_BAD = 0
 
 BDJSON = "../../twitter-users"
 

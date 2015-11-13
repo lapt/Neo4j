@@ -12,7 +12,7 @@ DEPTH = 2
 SEMILLA = "TVN"
 BDJSON = "../../twitter-users"
 enc = lambda x: x.encode('ascii', errors='ignore')
-
+ID_BAD = 0
 # The consumer keys can be found on your application's Details
 # page located at https://dev.twitter.com/apps (under "OAuth settings")
 CONSUMER_KEY = 'yDyQ2r8ygIYWG0nHqccMdYdZ1'
@@ -283,7 +283,12 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                             close_connection_sql(cn)
                             break
                         else:
-                                           # hit rate limit, sleep for 15 minutes
+                            global ID_BAD
+                            if ID_BAD == fid:
+                                print "Id: %d durmio dos veces." % fid
+                                break
+                            ID_BAD = fid
+                            # hit rate limit, sleep for 15 minutes
                             print 'Rate limited. Dormir durante 15 minutos. ' + e.reason
                             time.sleep(15 * 60 + 15)
                             continue
