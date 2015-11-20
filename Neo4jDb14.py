@@ -212,6 +212,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                         user2=getUser(gdb,fid)
                         break
                     except tweepy.TweepError, e:
+                        print "Primero: "+e.reason+" Termina."
                         if e.reason == 'Failed to send request: (\'Connection aborted.\', gaierror(-2, \'Name or service not known\'))':
                             print 'Internet. Dormir durante 1 minuto. ' + e.message
                             time.sleep(60)

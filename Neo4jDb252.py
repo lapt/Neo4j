@@ -266,7 +266,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                         user2=getUser(gdb,fid)
                         break
                     except tweepy.TweepError, e:
-                        print e.reason
+                        print "Primero: "+e.reason+" Termina."
                         if e.reason == 'Failed to send request: HTTPSConnectionPool(host=\'api.twitter.com\', port=443): Read timed out. (read timeout=60)':
                             print 'Internet. Dormir durante 1 minuto. ' + e.message
                             time.sleep(60)
