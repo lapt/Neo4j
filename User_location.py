@@ -15,7 +15,7 @@ from pygeocoder import GeocoderError
 
 import sys
 
-GEO_NOM = ['scl', 'chile', 'cl', 'chl']
+GEO_NOM = ['scl', 'chile', 'cl', 'chl', 'stgo', 'santiasco']
 
 REGIONES = {'2':'Antofagasta',
             '3': 'Atacama',
