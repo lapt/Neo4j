@@ -25,6 +25,7 @@ CONSUMER_SECRET = 'TLl3fJyWL1ULSGPFYfhh9x8qIunKDbfLB1mqoacQJ6A8g6cFSS'
 ACCESS_TOKEN = '126471512-yrwSJN9QVPGafAI4s7Adfu5cKpA5AAnLz4zIWUAx'
 ACCESS_TOKEN_SECRET = 'foa09dwa6AXTC0IIzgOslL2UYfEVPd6Px0iDUfr9HkJTn'
 
+FID = 0
 # == OAuth Authentication ==
 #
 # This mode of authentication is the new preferred way
@@ -77,27 +78,27 @@ def close_connection_sql(connection):
     connection.close()
 
 
-def getConecction():
+def get_connection():
     gdb = GraphDatabase("http://neo4j:123456@localhost:7474/db/data/")
     return gdb
 
 
-def createUserJson(user={}, userfname=str()):
+def create_user_json(user={}, userfname=str()):
     with open(userfname, 'w') as outf:
         outf.write(json.dumps(user, indent=1))
-        print("UserJson id: " + str(user['id']) + " creado.")
+        print("UserJson id: " + str(user['id']) + " create.")
 
 
-def getIdsBySemilla(gdb, semilla):  # Ids por semilla
+def get_ids_by_seed(gdb, seed):  # Ids por semilla
     query = "MATCH (n:Chile)-->(p) WHERE n.screen_name={sn} RETURN collect(p.id) as n"
-    param = {'sn': semilla}
+    param = {'sn': seed}
     results = gdb.query(query, params=param, data_contents=True)
     if len(results.rows) > 1:
         print "WARNING: ID CON MAS DE UN NODO ASIGNADO. Id: " + str(id)
     return results.rows[0][0]
 
 
-def createUserNode(gdb, user={}):
+def create_user_node(gdb, user={}):
     try:
         u = user.copy()
         n = gdb.node()
@@ -113,19 +114,19 @@ def createUserNode(gdb, user={}):
             n.labels.add("Extranjero")
     except exceptions.StatusException as e:
         n.delete()
-        print "Ocurrio el siguiente error: " + e.result
+        print "It get next error: " + e.result
         return None
-
+    print "Node %d successfully created " % u['id']
     return n
 
 
-def getListUsers(gdb):
+def get_list_users(gdb):
     query = "MATCH (n:User) RETURN n LIMIT 25"
     results = gdb.query(query, data_contents=True)
     return results
 
 
-def getUserNodeById(gdb, id):
+def get_user_node_by_id(gdb, id):
     query = "MATCH (n:User)WHERE n.id={id} RETURN n LIMIT 25"
     param = {'id': id}
     results = gdb.query(query, params=param, data_contents=True)
@@ -133,7 +134,7 @@ def getUserNodeById(gdb, id):
         u = results.rows[0][0]
 
 
-def getIdUserNodo(gdb, id):
+def get_id_user_node(gdb, id):
     query = "MATCH (n:User) WHERE n.id={id} RETURN {id: ID(n)} as n"
     param = {'id': id}
     results = gdb.query(query, params=param, data_contents=True)
@@ -142,14 +143,14 @@ def getIdUserNodo(gdb, id):
     return results.rows[0][0]['id']
 
 
-def getUser(gdb, id):
-    existe = False  ## Para evitar nodos repetidos
+def get_user(gdb, id):
+    exist = False  ## Para evitar nodos repetidos
     ##USAMOS NEO4J
     query = "MATCH (n:User)WHERE n.id={id} RETURN n LIMIT 25"
     param = {'id': id}
     results = gdb.query(query, params=param, data_contents=True)
     if results.rows is not None:
-        existe = True
+        exist = True
         u = results.rows[0][0]
         if u['chile'] is False:
             return u
@@ -158,8 +159,8 @@ def getUser(gdb, id):
 
     if os.path.exists(userfname):
         user = json.loads(file(userfname).read())
-        if existe is False:
-            if createUserNode(gdb, user) is None:
+        if exist is False:
+            if create_user_node(gdb, user) is None:
                 return None
         return user
     ##USAMOS APITWITTER
@@ -169,34 +170,39 @@ def getUser(gdb, id):
     if u.protected is True:
         return None
 
-    user = {'location': u.location}
-    user['id'] = id
+    user = {'location': u.location, 'id': id}
     user = is_location(user)
-
+    user['screen_name'] = unicode(u.screen_name).encode('utf-8')
+    user['followers_count'] = int(u.followers_count)
+    user['followers_ids'] = u.followers_ids()
+    user['time_zone'] = unicode(u.time_zone).encode('utf-8')
+    user['geo_enabled'] = u.geo_enabled
+    user['description'] = unicode(u.description).encode('utf-8')
+    user['friends_count'] = int(u.friends_count)
+    user['url'] = str(u.url)
+    user['name'] = unicode(u.name).encode('utf-8')
     if user['chile'] is True:
-        user['screen_name'] = str(u.screen_name)
-        user['followers_count'] = int(u.followers_count)
-        user['followers_ids'] = u.followers_ids()
-        createUserJson(user, userfname)
-    if existe is False:
-        if createUserNode(gdb, user) is None:
+        create_user_json(user, userfname)
+    if exist is False:
+        if create_user_node(gdb, user) is None:
             return None
     return user
 
 
-def getRelationById(gdb, id):
+def get_relation_by_id(gdb, id):
     query = "MATCH ()-[role:Follower]->() where role.id={id} return role"
     param = {'id': id}
     results = gdb.query(query, params=param, data_contents=True)
     return results.rows
 
 
-def createRelation(gdb, node1, node2):
+def create_relation(gdb, node1, node2):
     idd = str(node1.id) + "r" + str(node2.id)
-    rels = getRelationById(gdb, idd)
-    if rels is None:
-        rels = node1.relationships.create("Follower", node2, id=idd)
-    return rels
+    relation = get_relation_by_id(gdb, idd)
+    if relation is None:
+        relation = node1.relationships.create("Follower", node2, id=idd)
+        print "Relation between " + idd + " create."
+    return relation
 
 
 def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
@@ -215,10 +221,10 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
         taboo_list.append(centre)
 
     try:
-        gdb = getConecction()
+        gdb = get_connection()
         while True:
             try:
-                user = getUser(gdb, centre)
+                user = get_user(gdb, centre)
                 if user is None or user['chile'] is False:
                     return taboo_list
                 print 'user id %s' % str(centre)
@@ -251,21 +257,23 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
         close_connection_sql(cn)
 
         set_id_loser = set(id_loser)
-        setSemilla = set(getIdsBySemilla(gdb, str(user['screen_name'])))
+        setSemilla = set(get_ids_by_seed(gdb, str(user['screen_name'])))
         setFollowerId = set(user['followers_ids'])
 
         followerids = list(setFollowerId - setSemilla - set_id_loser)
         if cd + 1 < max_depth:
-            idnodo = getIdUserNodo(gdb, user['id'])
+            idnodo = get_id_user_node(gdb, user['id'])
             nodo = gdb.node[idnodo]
             for fid in followerids[:int(FOLLOWERS_OF_FOLLOWERS_LIMIT)]:
+                global FID
+                FID = fid
                 user2 = None
                 while True:
                     try:
-                        user2 = getUser(gdb, fid)
+                        user2 = get_user(gdb, fid)
                         break
                     except tweepy.TweepError, e:
-                        print "Primero: "+e.reason+" Termina."
+                        print "Primero: " + e.reason + " Termina."
                         if e.reason == 'Failed to send request: (\'Connection aborted.\', gaierror(-2, \'Name or service not known\'))':
                             print 'Internet. Dormir durante 1 minuto. ' + e.message
                             time.sleep(60)
@@ -302,10 +310,10 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
                 if user2 is None:
                     continue
 
-                idnodo2 = getIdUserNodo(gdb, user2['id'])
+                idnodo2 = get_id_user_node(gdb, user2['id'])
                 nodo2 = gdb.node[idnodo2]
 
-                createRelation(gdb, nodo, nodo2)
+                create_relation(gdb, nodo, nodo2)
                 taboo_list = get_follower_ids(fid, max_depth=max_depth,
                                               current_depth=cd + 1, taboo_list=taboo_list)
 
@@ -313,7 +321,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
             print 'No todos los seguidores fueron recuperados para %d.' % centre
 
     except Exception, error:
-        print 'Error al recuperar los seguidores de usuario id: ' + str(centre) + 'y con fid = ' + str(fid)
+        print 'Error al recuperar los seguidores de usuario id: ' + str(centre) + " fid = " + str(FID)
         print error
         return taboo_list
         sys.exit(1)
@@ -321,7 +329,7 @@ def get_follower_ids(centre, max_depth=1, current_depth=0, taboo_list=[]):
     return taboo_list
 
 
-def getIds(sn):
+def get_ids(sn):
     ides = []
     i = 0
     for page in tweepy.Cursor(api.followers_ids, screen_name=sn).pages():
@@ -351,7 +359,7 @@ def main():
 
 
 def prueba():
-    gdb = getConecction()
+    gdb = get_connection()
     id = 2182892282
     u = {'id': 2182892282, 'location': 'Tarapaca'}
 
