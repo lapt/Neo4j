@@ -5,6 +5,7 @@ import MySQLdb
 from User_location import *
 from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import exceptions
+import Credentials as k
 
 FOLLOWERS_OF_FOLLOWERS_LIMIT = 3000000
 DEPTH = 2
