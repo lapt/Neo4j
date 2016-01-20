@@ -1,7 +1,7 @@
 __author__ = 'luisangel'
 import tweepy
 import time
-
+import MySQLdb
 from User_location import *
 from neo4jrestclient.client import GraphDatabase
 from neo4jrestclient import exceptions
